@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://tier4.github.io/autoware.iv/map/map_loader/">
       
       <link rel="icon" href="../../docs/images/tier4.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.6">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.8">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.802231af.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.92558b1b.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -3704,9 +3704,9 @@
 <p>This package provides the features of loading various maps.</p>
 <h2 id="pointcloud_map_loader">pointcloud_map_loader<a class="headerlink" href="#pointcloud_map_loader" title="Permanent link">#</a></h2>
 <h3 id="feature">Feature<a class="headerlink" href="#feature" title="Permanent link">#</a></h3>
-<p>pointcloud_map_loader loads PointCloud file and publish the map data as sensor_msgs/PointCloud2 message.</p>
+<p>pointcloud_map_loader loads PointCloud file and publishes the map data as sensor_msgs/PointCloud2 message.</p>
 <h3 id="how-to-run">How to run<a class="headerlink" href="#how-to-run" title="Permanent link">#</a></h3>
-<p><code>rosrun map_loader pointcloud_map_loader path/to/pointcloud1.pcd path/to/pointcloud2.pcd ...</code></p>
+<p><code>ros2 run map_loader pointcloud_map_loader --ros-args -p "pcd_paths_or_directory:=[path/to/pointcloud1.pcd, path/to/pointcloud2.pcd, ...]"</code></p>
 <h3 id="published-topics">Published Topics<a class="headerlink" href="#published-topics" title="Permanent link">#</a></h3>
 <ul>
 <li>pointcloud_map (sensor_msgs/PointCloud2) : PointCloud Map</li>
@@ -3714,10 +3714,10 @@
 <hr />
 <h2 id="lanelet2_map_loader">lanelet2_map_loader<a class="headerlink" href="#lanelet2_map_loader" title="Permanent link">#</a></h2>
 <h3 id="feature_1">Feature<a class="headerlink" href="#feature_1" title="Permanent link">#</a></h3>
-<p>lanelet2_map_loader loads Lanelet2 file and publish the map data as autoware_lanelet2_msgs/MapBin message.
+<p>lanelet2_map_loader loads Lanelet2 file and publishes the map data as autoware_lanelet2_msgs/MapBin message.
 The node projects lan/lon coordinates into MGRS coordinates.</p>
 <h3 id="how-to-run_1">How to run<a class="headerlink" href="#how-to-run_1" title="Permanent link">#</a></h3>
-<p><code>rosrun map_loader lanelet2_map_loader path/to/map.osm</code></p>
+<p><code>ros2 run map_loader lanelet2_map_loader --ros-args -p lanelet2_map_path:=path/to/map.osm</code></p>
 <h3 id="published-topics_1">Published Topics<a class="headerlink" href="#published-topics_1" title="Permanent link">#</a></h3>
 <ul>
 <li>~output/lanelet2_map (autoware_lanelet2_msgs/MapBin) : Binary data of loaded Lanelet2 Map</li>
@@ -3727,14 +3727,14 @@ The node projects lan/lon coordinates into MGRS coordinates.</p>
 <h3 id="feature_2">Feature<a class="headerlink" href="#feature_2" title="Permanent link">#</a></h3>
 <p>lanelet2_map_visualization visualizes autoware_lanelet2_msgs/MapBin messages into visualization_msgs/MarkerArray.</p>
 <h3 id="how-to-run_2">How to Run<a class="headerlink" href="#how-to-run_2" title="Permanent link">#</a></h3>
-<p><code>rosrun map_loader lanelet2_map_visualization</code></p>
+<p><code>ros2 run map_loader lanelet2_map_visualization</code></p>
 <h3 id="subscribed-topics">Subscribed Topics<a class="headerlink" href="#subscribed-topics" title="Permanent link">#</a></h3>
 <ul>
 <li>~input/lanelet2_map (autoware_lanelet2_msgs/MapBin) : binary data of Lanelet2 Map</li>
 </ul>
 <h3 id="published-topics_2">Published Topics<a class="headerlink" href="#published-topics_2" title="Permanent link">#</a></h3>
 <ul>
-<li>~output/lanelet2_map_marker (visualization_msgs/MarkerArray) : visualization messages for RVIZ</li>
+<li>~output/lanelet2_map_marker (visualization_msgs/MarkerArray) : visualization messages for RViz</li>
 </ul>
 <hr />
 <h2 id="elevation_map_loader">elevation_map_loader<a class="headerlink" href="#elevation_map_loader" title="Permanent link">#</a></h2>
@@ -3748,7 +3748,7 @@ Cells with No elevation value can be inpainted using the values of neighboring c
 </p>
 
 <h3 id="how-to-run_3">How to run<a class="headerlink" href="#how-to-run_3" title="Permanent link">#</a></h3>
-<p><code>ros2 run map_loader elevation_map_loader --ros-args grid_map_msgs::msg::GridMap -p param_file_path:=path/to/elevation_map_parameters.yaml -p elevation_map_file_path:=path/to/elevation_map/</code></p>
+<p><code>ros2 run map_loader elevation_map_loader --ros-args -p param_file_path:=path/to/elevation_map_parameters.yaml -p elevation_map_directory:=path/to/elevation_map_directory -p pointcloud_map_path:=path/to/pointcloud.pcd</code></p>
 <h3 id="subscribed-topics_1">Subscribed Topics<a class="headerlink" href="#subscribed-topics_1" title="Permanent link">#</a></h3>
 <ul>
 <li>input/pointcloud_map (sensor_msgs:PointCloud2) : PointCloud Map</li>
@@ -3852,7 +3852,7 @@ Cells with No elevation value can be inpainted using the values of neighboring c
 </tbody>
 </table>
 <h4 id="gridmap-parameters">GridMap parameters<a class="headerlink" href="#gridmap-parameters" title="Permanent link">#</a></h4>
-<p>The parameters are described on <code>config/elevation_map_parameters.yaml</code></p>
+<p>The parameters are described on <code>config/elevation_map_parameters.yaml</code>.</p>
 <h5 id="general-parameters">General parameters<a class="headerlink" href="#general-parameters" title="Permanent link">#</a></h5>
 <table>
 <thead>
@@ -3874,39 +3874,148 @@ Cells with No elevation value can be inpainted using the values of neighboring c
 </table>
 <h5 id="grid-map-parameters">Grid map parameters<a class="headerlink" href="#grid-map-parameters" title="Permanent link">#</a></h5>
 <p>See: <a href="https://github.com/ANYbotics/grid_map/tree/ros2/grid_map_pcl">https://github.com/ANYbotics/grid_map/tree/ros2/grid_map_pcl</a></p>
-<p>Resulting grid map parameters.
-| Name | Type | Description | Default value |
-| :------------------------------------------------------- | :---- | :----------------------------------------------------------------------------------------------------------------------------------------------- | :------------ |
-| pcl_grid_map_extraction/grid_map/min_num_points_per_cell | int | Minimum number of points in the point cloud that have to fall within any of the grid map cells. Otherwise the cell elevation will be set to NaN. | 3 |
-| pcl_grid_map_extraction/grid_map/resolution | float | Resolution of the grid map. Width and length are computed automatically. | 0.3 |</p>
+<p>Resulting grid map parameters.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">pcl_grid_map_extraction/grid_map/min_num_points_per_cell</td>
+<td align="left">int</td>
+<td align="left">Minimum number of points in the point cloud that have to fall within any of the grid map cells. Otherwise the cell elevation will be set to NaN.</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">pcl_grid_map_extraction/grid_map/resolution</td>
+<td align="left">float</td>
+<td align="left">Resolution of the grid map. Width and length are computed automatically.</td>
+<td align="left">0.3</td>
+</tr>
+</tbody>
+</table>
 <h4 id="point-cloud-pre-processing-parameters">Point Cloud Pre-processing Parameters<a class="headerlink" href="#point-cloud-pre-processing-parameters" title="Permanent link">#</a></h4>
 <h5 id="rigid-body-transform-parameters">Rigid body transform parameters<a class="headerlink" href="#rigid-body-transform-parameters" title="Permanent link">#</a></h5>
-<p>Rigid body transform that is applied to the point cloud before computing elevation.
-| Name | Type | Description | Default value |
-| :-------------------------------------------------- | :---- | :---------------------------------------------------------------------------------------------------------------------- | :------------ |
-| pcl_grid_map_extraction/cloud_transform/translation | float | Translation (xyz) that is applied to the input point cloud before computing elevation. | 0.0 |
-| pcl_grid_map_extraction/cloud_transform/rotation | float | Rotation (intrinsic rotation, convention X-Y'-Z'') that is applied to the input point cloud before computing elevation. | 0.0 |</p>
+<p>Rigid body transform that is applied to the point cloud before computing elevation.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">pcl_grid_map_extraction/cloud_transform/translation</td>
+<td align="left">float</td>
+<td align="left">Translation (xyz) that is applied to the input point cloud before computing elevation.</td>
+<td align="left">0.0</td>
+</tr>
+<tr>
+<td align="left">pcl_grid_map_extraction/cloud_transform/rotation</td>
+<td align="left">float</td>
+<td align="left">Rotation (intrinsic rotation, convention X-Y'-Z'') that is applied to the input point cloud before computing elevation.</td>
+<td align="left">0.0</td>
+</tr>
+</tbody>
+</table>
 <h5 id="cluster-extraction-parameters">Cluster extraction parameters<a class="headerlink" href="#cluster-extraction-parameters" title="Permanent link">#</a></h5>
-<p>Cluster extraction is based on pcl algorithms. See: <a href="http://pointclouds.org/documentation/tutorials/cluster_extraction.php">http://pointclouds.org/documentation/tutorials/cluster_extraction.php</a> for more details.
-| Name | Type | Description | Default value |
-| :----------------------------------------------------------- | :---- | :------------------------------------------------------------------------------------- | :------------ |
-| pcl_grid_map_extraction/cluster_extraction/cluster_tolerance | float | Distance between points below which they will still be considered part of one cluster. | 0.2 |
-| pcl_grid_map_extraction/cluster_extraction/min_num_points | int | Min number of points that a cluster needs to have (otherwise it will be discarded). | 3 |
-| pcl_grid_map_extraction/cluster_extraction/max_num_points | int | Max number of points that a cluster can have (otherwise it will be discarded). | 1000000 |</p>
+<p>Cluster extraction is based on pcl algorithms. See <a href="https://pointclouds.org/documentation/tutorials/cluster_extraction.html">https://pointclouds.org/documentation/tutorials/cluster_extraction.html</a> for more details.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">pcl_grid_map_extraction/cluster_extraction/cluster_tolerance</td>
+<td align="left">float</td>
+<td align="left">Distance between points below which they will still be considered part of one cluster.</td>
+<td align="left">0.2</td>
+</tr>
+<tr>
+<td align="left">pcl_grid_map_extraction/cluster_extraction/min_num_points</td>
+<td align="left">int</td>
+<td align="left">Min number of points that a cluster needs to have (otherwise it will be discarded).</td>
+<td align="left">3</td>
+</tr>
+<tr>
+<td align="left">pcl_grid_map_extraction/cluster_extraction/max_num_points</td>
+<td align="left">int</td>
+<td align="left">Max number of points that a cluster can have (otherwise it will be discarded).</td>
+<td align="left">1000000</td>
+</tr>
+</tbody>
+</table>
 <h5 id="outlier-removal-parameters">Outlier removal parameters<a class="headerlink" href="#outlier-removal-parameters" title="Permanent link">#</a></h5>
-<p>See <a href="http://pointclouds.org/documentation/tutorials/statistical_outlier.php">http://pointclouds.org/documentation/tutorials/statistical_outlier.php</a> for more explanation on outlier removal.
-| Name | Type | Description | Default value |
-| :--------------------------------------------------------- | :---- | :----------------------------------------------------------------------------- | :------------ |
-| pcl_grid_map_extraction/outlier_removal/is_remove_outliers | float | Whether to perform statistical outlier removal. | false |
-| pcl_grid_map_extraction/outlier_removal/mean_K | float | Number of neighbours to analyze for estimating statistics of a point. | 10 |
-| pcl_grid_map_extraction/outlier_removal/stddev_threshold | float | Number of standard deviations under which points are considered to be inliers. | 1.0 |</p>
+<p>See <a href="https://pointclouds.org/documentation/tutorials/statistical_outlier.html">https://pointclouds.org/documentation/tutorials/statistical_outlier.html</a> for more explanation on outlier removal.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">pcl_grid_map_extraction/outlier_removal/is_remove_outliers</td>
+<td align="left">float</td>
+<td align="left">Whether to perform statistical outlier removal.</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td align="left">pcl_grid_map_extraction/outlier_removal/mean_K</td>
+<td align="left">float</td>
+<td align="left">Number of neighbours to analyze for estimating statistics of a point.</td>
+<td align="left">10</td>
+</tr>
+<tr>
+<td align="left">pcl_grid_map_extraction/outlier_removal/stddev_threshold</td>
+<td align="left">float</td>
+<td align="left">Number of standard deviations under which points are considered to be inliers.</td>
+<td align="left">1.0</td>
+</tr>
+</tbody>
+</table>
 <h5 id="subsampling-parameters">Subsampling parameters<a class="headerlink" href="#subsampling-parameters" title="Permanent link">#</a></h5>
-<p>See <a href="http://pointclouds.org/documentation/tutorials/voxel_grid.php">http://pointclouds.org/documentation/tutorials/voxel_grid.php</a> for more explanation on point cloud downsampling
-| Name | Type | Description | Default value |
-| :------------------------------------------------------- | :---- | :-------------------------------------- | :------------ |
-| pcl_grid_map_extraction/downsampling/is_downsample_cloud | bool | Whether to perform downsampling or not. | false |
-| pcl_grid_map_extraction/downsampling/voxel_size | float | Voxel sizes (xyz) in meters. | 0.02 |</p>
-<hr />
+<p>See <a href="https://pointclouds.org/documentation/tutorials/voxel_grid.html">https://pointclouds.org/documentation/tutorials/voxel_grid.html</a> for more explanation on point cloud downsampling.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Name</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+<th align="left">Default value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">pcl_grid_map_extraction/downsampling/is_downsample_cloud</td>
+<td align="left">bool</td>
+<td align="left">Whether to perform downsampling or not.</td>
+<td align="left">false</td>
+</tr>
+<tr>
+<td align="left">pcl_grid_map_extraction/downsampling/voxel_size</td>
+<td align="left">float</td>
+<td align="left">Voxel sizes (xyz) in meters.</td>
+<td align="left">0.02</td>
+</tr>
+</tbody>
+</table>
                 
               
               
@@ -3981,10 +4090,10 @@ Cells with No elevation value can be inpainted using the values of neighboring c
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.409db549.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.94ec81fe.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.756773cc.min.js"></script>
+      <script src="../../assets/javascripts/bundle.48dfec6c.min.js"></script>
       
         <script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
       
